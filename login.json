@@ -1,0 +1,24 @@
+{
+  "vendedores": [
+    {
+      "filial": " " ,
+      "empresaMatricula": "" ,
+      "senha": ""
+    },
+    {
+      "filial": " " ,
+      "empresaMatricula": "" ,
+      "senha": " "
+    },
+    {
+      "filial": " ",
+      "empresaMatricula": "",
+      "senha": " "
+    },
+    {
+      "filial": " " ,
+      "empresaMatricula": "",
+      "senha": ""
+    }
+  ]
+}

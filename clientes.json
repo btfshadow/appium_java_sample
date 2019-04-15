@@ -1,0 +1,16 @@
+{
+  "clientes":[
+    {
+      "cpf": "" ,
+      "email": "" ,
+      "celular": "",
+      "tipo":"",
+      "ddd":"",
+      "numero":"",
+      "cep": "",
+      "tipoTelefone":"",
+      "dataNascimento": " ",
+      "bairro": ""
+    }
+    ]
+}

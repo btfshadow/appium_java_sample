@@ -1,0 +1,83 @@
+group 'Allure'
+version '1.0-SNAPSHOT'
+
+
+apply plugin: 'io.qameta.allure'
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'io.qameta.allure:allure-gradle:2.5'
+    }
+
+}
+
+
+allure {
+    version = '2.2.1'
+    autoconfigure = true
+
+}
+
+configurations {
+    cucumberRuntime {
+        extendsFrom testRuntime
+    }
+}
+
+sourceSets {
+    test {
+        java {
+            srcDirs = ["src/main/java"]
+        }
+    }
+}
+
+test {
+    testLogging.showStandardStreams = true
+}
+
+
+repositories {
+    jcenter()
+}
+
+task runFeatures() {
+    dependsOn assemble, compileTestJava
+
+    doLast {
+        javaexec {
+            main = "cucumber.api.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = [
+                    '--plugin','io.qameta.allure.cucumberjvm.AllureCucumberJvm',
+                    '--monochrome', '--strict',
+                    '--glue', 'stepDefinition',
+                    '--tags','~@instrumentado/unitário',
+                    '--tags','~@testeContrato',
+                    '--tags','~@visualRegression',
+                    '--tags','~@massaDedados',
+                    'src/main/resources/features/'
+                    ]
+        }
+    }
+}
+
+dependencies {
+    compile group: 'junit', name: 'junit', version: '4.12'
+    compile "info.cukes:cucumber-java:1.2.4"
+    compile "io.cucumber:cucumber-jvm:3.0.2"
+    compile "io.appium:java-client:4.1.2"
+    compile "io.qameta.allure:allure-cucumber-jvm:2.6.0"
+    compile 'org.json:json:20160810'
+    compile 'com.jayway.restassured:rest-assured:2.9.0'
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.8.0-beta2'
+    compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.8.0-beta2'
+
+}
